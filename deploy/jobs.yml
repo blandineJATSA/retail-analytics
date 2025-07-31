@@ -1,0 +1,57 @@
+# Configuration des jobs DBT Cloud
+name: retail-analytics-jobs
+version: "1.0"
+
+# Documentation des jobs de déploiement
+jobs:
+  daily_refresh:
+    description: "Actualisation quotidienne des analytics"
+    schedule: "0 6 * * *"
+    commands:
+      - "dbt deps"
+      - "dbt run --models +analytics"
+      - "dbt test --models +analytics"
+      - "dbt docs generate"
+    environment: production
+    
+  weekly_refresh:
+    description: "Refresh complet hebdomadaire"  
+    schedule: "0 2 * * 1"
+    commands:
+      - "dbt deps"
+      - "dbt seed"
+      - "dbt run --full-refresh"
+      - "dbt test"
+      - "dbt docs generate"
+    environment: production
+
+  critical_updates:
+    description: "Mise à jour métriques critiques"
+    schedule: "0 * * * *"
+    commands:
+      - "dbt run --models analytics_executive_dashboard"
+      - "dbt test --models analytics_executive_dashboard"
+    environment: production
+
+# Configuration des environnements
+environments:
+  development:
+    target: dev
+    threads: 2
+    database: RETAIL_ANALYTICS_DEV
+    
+  production:
+    target: prod
+    threads: 4
+    database: RETAIL_ANALYTICS_PROD
+
+# Paramètres de déploiement
+deployment:
+  auto_cancel_previous_runs: true
+  generate_docs: true
+  run_timeout: 3600
+  
+# Variables globales
+vars:
+  start_date: "2024-01-01"
+  lookback_days: 30

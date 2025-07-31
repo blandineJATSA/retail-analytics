@@ -1,0 +1,12 @@
+# models/analytics/schema.yml
+version: 2
+
+models:
+  - name: analytics_executive_dashboard
+    description: "Executive dashboard avec KPIs business"
+    
+  - name: analytics_customer_cohorts  
+    description: "Analyse de cohortes clients"
+    
+  - name: analytics_rfm_segmentation
+    description: "Segmentation RFM des clients"

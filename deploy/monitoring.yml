@@ -1,0 +1,41 @@
+# Configuration de surveillance
+monitoring:
+  freshness_checks:
+    sources:
+      - name: raw_customers
+        max_delay: "24 hours"
+        severity: "error"
+      - name: raw_orders  
+        max_delay: "6 hours"
+        severity: "warn"
+      - name: raw_payments
+        max_delay: "2 hours"
+        severity: "error"
+        
+  data_quality:
+    tests:
+      critical:
+        - unique_stg_customers_customer_id
+        - not_null_stg_orders_order_id
+        - not_null_stg_payments_payment_id
+      warning:
+        - accepted_values_stg_payments_payment_method
+        
+  alerts:
+    slack:
+      webhook_url: "${SLACK_WEBHOOK}"
+      channel: "#data-alerts"
+    email:
+      recipients: ["data-team@company.com"]
+      
+  metrics:
+    - name: "daily_revenue"
+      query: "SELECT SUM(amount) FROM analytics_executive_dashboard WHERE DATE(created_at) = CURRENT_DATE"
+      threshold: 
+        min: 1000
+        max: 100000
+    
+    - name: "customer_count"
+      query: "SELECT COUNT(DISTINCT customer_id) FROM stg_customers"
+      threshold:
+        min: 100

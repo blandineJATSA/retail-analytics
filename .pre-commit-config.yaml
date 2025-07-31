@@ -1,0 +1,22 @@
+# Hooks de validation avant commit
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 2.3.2
+    hooks:
+      - id: sqlfluff-lint
+        args: [--dialect, snowflake]
+        additional_dependencies: ['dbt-snowflake']
+        
+  - repo: https://github.com/dbt-labs/dbt-pre-commit
+    rev: v1.5.0
+    hooks:
+      - id: dbt-compile
+      - id: dbt-docs-generate

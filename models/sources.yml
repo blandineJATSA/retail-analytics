@@ -1,0 +1,76 @@
+version: 2
+
+sources:
+  - name: retail_analytics
+    description: Raw retail data for analytics
+    database: RETAIL_ANALYTICS
+    schema: RAW
+    tables:
+      - name: customers
+        description: Raw customer data from CSV
+        columns:
+          - name: id
+            description: Primary key for customers (unique identifier)
+            tests:
+              - unique
+              - not_null
+          - name: first_name
+            description: Customer first name
+            tests:
+              - not_null
+          - name: last_name
+            description: Customer last name
+            tests:
+              - not_null
+
+      - name: orders
+        description: Raw order data from CSV
+        columns:
+          - name: id
+            description: Primary key for orders (unique order identifier)
+            tests:
+              - unique
+              - not_null
+          - name: user_id
+            description: Foreign key to customers (references customers.id)
+            tests:
+              - not_null
+              - relationships:
+                  to: source('retail_analytics', 'customers')
+                  field: id
+          - name: order_date
+            description: Date when the order was placed (YYYY-MM-DD format)
+            tests:
+              - not_null
+          - name: status
+            description: Current status of the order
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['completed', 'returned', 'return_pending', 'shipped', 'placed']
+
+      - name: payments
+        description: Raw payment data from CSV
+        columns:
+          - name: id
+            description: Primary key for payments (unique payment identifier)
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+            description: Foreign key to orders (references orders.id)
+            tests:
+              - not_null
+              - relationships:
+                  to: source('retail_analytics', 'orders')
+                  field: id
+          - name: payment_method
+            description: Method used for payment
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
+          - name: amount
+            description: Payment amount in cents (divide by 100 for dollars)
+            tests:
+              - not_null

@@ -1,0 +1,26 @@
+# Configuration des environnements
+retail_analytics:
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: DEV_ROLE
+      database: DEV_RETAIL_DB
+      warehouse: DEV_WH
+      schema: analytics_dev
+      threads: 4
+      
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_PROD_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PROD_PASSWORD') }}"
+      role: PROD_ROLE
+      database: PROD_RETAIL_DB
+      warehouse: PROD_WH
+      schema: analytics_prod
+      threads: 8
+      
+  target: dev

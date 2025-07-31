@@ -1,0 +1,89 @@
+name: 'retail_analytics'
+version: '1.0.0'
+config-version: 2
+
+# Profile utilisé (doit correspondre à profiles.yml)
+profile: 'retail_analytics'
+
+# Chemins des dossiers
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Cible de nettoyage
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configuration des variables
+vars:
+  # Variables globales du projet
+  start_date: '2018-01-01'
+  end_date: '2024-12-31'
+  
+  # Variables business pour segmentation
+  high_value_threshold: 50
+  medium_value_threshold: 20
+  churn_days_threshold: 90
+  recent_activity_days: 30
+
+# Configuration des modèles par dossier
+models:
+  retail_analytics:
+    
+    # Modèles STAGING - données nettoyées
+    staging:
+      +materialized: view           # Vues rapides
+      +schema: staging              # Schema: RETAIL_ANALYTICS.STAGING
+      +docs:
+        node_color: "#228B22"       # Vert dans la doc
+    
+    # Modèles INTERMEDIATE - logique métier
+    intermediate:
+      +materialized: view           # Vues rapides
+      +schema: intermediate         # Schema: RETAIL_ANALYTICS.INTERMEDIATE
+      +docs:
+        node_color: "#FFA500"       # Orange dans la doc
+    
+    # Modèles MARTS - analyses finales
+    marts:
+      +materialized: table          # Tables pour performance
+      +schema: marts                # Schema: RETAIL_ANALYTICS.MARTS
+      +docs:
+        node_color: "#4169E1"       # Bleu dans la doc
+    
+    # Modèles ANALYTICS - tableaux de bord
+    analytics:
+      +materialized: view           # Vues pour analytics
+      +schema: analytics            # Schema: RETAIL_ANALYTICS.ANALYTICS
+      +docs:
+        node_color: "#9932CC"       # Violet dans la doc
+
+# Configuration des snapshots
+snapshots:
+  retail_analytics:
+    +target_schema: snapshots       # Schema: RETAIL_ANALYTICS.SNAPSHOTS
+    +strategy: timestamp
+    +updated_at: updated_at
+
+# Configuration des seeds
+seeds:
+  retail_analytics:
+    +schema: seeds                  # Schema: RETAIL_ANALYTICS.SEEDS
+    +quote_columns: false
+
+# Configuration des tests
+tests:
+  retail_analytics:
+    +store_failures: true          # Sauvegarder les échecs de tests
+    +schema: tests                  # Schema pour les tests
+
+# On-run-start et on-run-end hooks
+on-run-start:
+  - "{{ log('🚀 Démarrage du pipeline DBT - Retail Analytics', info=true) }}"
+
+on-run-end:
+  - "{{ log('✅ Pipeline DBT terminé avec succès!', info=true) }}"
