@@ -18,7 +18,7 @@
 ## 🎭 **Contexte Business & Problématique**
 
 ### 🏢 **Situation d'entreprise**
-Une **entreprise retail omnicanal** (en ligne + magasins physiques) avec :
+Trend Hive une **entreprise retail omnicanal** (en ligne + magasins physiques) avec :
 - 📊 **+50K commandes/mois**
 - 👥 **+10K clients actifs**
 - 🛍️ **+500 produits** dans le catalogue
@@ -83,7 +83,7 @@ graph TB
         C1[📥 Staging] --> C2[🧮 Analytics]
         C2 --> C3[📊 Marts]
     end
-
+```
 
 ## 🛠️ STACK TECHNIQUE UTILISÉE
 
