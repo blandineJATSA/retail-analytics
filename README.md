@@ -15,6 +15,15 @@
 
 ---
 
+## 📊 Data Lineage Visualization
+
+🏗️ Vue d'Ensemble du Pipeline
+![Pipeline End-to-End](images/models_lineage.PNG)
+
+ 📈 Analytics Layer Lineage
+![Analytics Lineage](images/analytics_schema_lineage.PNG)
+*Calcul des métriques business à partir des données staging*
+
 ##  **Contexte Business & Problématique**
 
 ### 🏢 **Situation d'entreprise**
