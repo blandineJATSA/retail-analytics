@@ -15,7 +15,7 @@
 
 ---
 
-## 🎭 **Contexte Business & Problématique**
+##  **Contexte Business & Problématique**
 
 ### 🏢 **Situation d'entreprise**
 Trend Hive une **entreprise retail omnicanal** (en ligne + magasins physiques) avec :
@@ -42,7 +42,7 @@ Un **Data Warehouse moderne** avec :
 
 ---
 
-## 🎯 **Objectifs & ROI Attendu**
+## 🎯 **Objectifs **
 
 ### 🎯 **Objectifs Business**
 1. **Augmenter le chiffre d'affaires** de 15% grâce à de meilleures décisions
