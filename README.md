@@ -84,6 +84,7 @@ graph TB
         C2 --> C3[📊 Marts]
     end
 ```
+</div>
 
 ## 🛠️ STACK TECHNIQUE UTILISÉE
 
@@ -101,45 +102,31 @@ graph TB
 ## ⚙️ ARCHITECTURE GÉNÉRALE
 
 ```mermaid
-flowchart LR
-    Source[Sources Retail - CRM, POS, Ecom] -->|Extract| Snowflake[(DataWarehouse)]
-    Snowflake -->|Transform (SQL)| DBT[DBT Cloud]
-    DBT -->|Test, Doc, Orchestration| DataSet[Data Sets certified]
-    DataSet -->|Visualisation| Dashboard[Dashboards (BI)]
-    DBT --> GitHub[GitHub - Code & Docs]
+graph LR
+    Source[Sources Retail - CRM, POS, Ecom] -->|"Extract"| Snowflake[(DataWarehouse)]
+    Snowflake -->|"Transform SQL"| DBT[DBT Cloud]
+    DBT -->|"Test, Doc, Orchestration"| DataSet[Data Sets certified]
+    DataSet -->|"Visualisation"| Dashboard[(Dashboards BI)]
+    DBT -->|"Code & Docs"| GitHub[GitHub]
 ```
 
 ## 📖 ÉTAPES DU PROJET
-1️⃣ Connexion aux Données
+1️⃣ Connexion aux Données ==> Extraction des données brutes (commandes, clients, produits…) dans Snowflake.
 
-Extraction des données brutes (commandes, clients, produits…) dans Snowflake.
+2️⃣ Création des modèles de staging (DBT) ==> Nettoyage, normalisation des raw data → tables de staging claires.
 
-2️⃣ Création des modèles de staging (DBT)
+3️⃣ Transformation analytique et modélisation métier ==> Écriture de modèles analytiques : cohortes, CLV, performance par produit, etc.
 
-Nettoyage, normalisation des raw data → tables de staging claires.
+4️⃣ Tests automatisés sur chaque étape ==> Grâce à DBT : tests de qualité (unicité, non-null, relations...)
 
-3️⃣ Transformation analytique et modélisation métier
+5️⃣ Documentation intégrée & collaborative  ==> Doc technique et métier générée automatiquement via DBT Cloud.
 
-Écriture de modèles analytiques : cohortes, CLV, performance par produit, etc.
+6️⃣ Jobs planifiés et industrialisation ==> Automatisation des scripts : actualisation quotidienne, analyse ad hoc, monitoring...
 
-4️⃣ Tests automatisés sur chaque étape
-
-Grâce à DBT : tests de qualité (unicité, non-null, relations...)
-
-5️⃣ Documentation intégrée & collaborative
-
-Doc technique et métier générée automatiquement via DBT Cloud.
-
-6️⃣ Jobs planifiés et industrialisation
-
-Automatisation des scripts : actualisation quotidienne, analyse ad hoc, monitoring...
-
-7️⃣ Restitution visuelle & prise de décision
-
-Consommation des datasets dans Tableau/PowerBI/dashboard.
+7️⃣ Restitution visuelle & prise de décision ==> Consommation des datasets dans Tableau/PowerBI/dashboard.
 
 
-🛠️ Outils, Concepts et Pratiques utilisées
+## 🛠️ Outils, Concepts et Pratiques utilisées
 
 - DBT Cloud : Transformation, orchestration et documentation de la data pipeline
 - Snowflake : Data Warehouse performant et scalable
@@ -149,34 +136,36 @@ Consommation des datasets dans Tableau/PowerBI/dashboard.
 
 
 ## 💻 INSTALLATION & PREMIÈRES COMMANDES
-### Cloner le repo
+Cloner le repo
 ```bash
 git clone https://github.com/VOTRE-USERNAME/retail-analytics-dbt
 cd retail-analytics-dbt
 ```
-### Installer les dépendances (DBT)
+Installer les dépendances (DBT)
 ```bash
 pip install dbt-snowflake
 ```
-### Configurer Snowflake & DBT (credentials dans profiles.yml)
+Configurer Snowflake & DBT (credentials dans profiles.yml)
 ```bash
 dbt debug
 ```
-### Lancer un modèle complet :
+Lancer un modèle complet :
 ```bash
 dbt run
 ```
 
-### Lancer les tests automatiques :
+Lancer les tests automatiques :
 ```bash
 dbt test
 ```
 
-### Générer la documentation interactive :
+Générer la documentation interactive :
 ```bash
 dbt docs generate
 ```
-## 🏗️ STRUCTURE DU PROJET
+
+## 🏗️ Structure du Projet
+```plaintext
 retail-analytics-dbt/
 ├── models/
 │   ├── staging/           # Données brutes nettoyées
@@ -188,39 +177,53 @@ retail-analytics-dbt/
 ├── dbt_project.yml        # Config DBT principale
 ├── profiles.yml           # Connexion à Snowflake
 └── README.md              # La doc que vous lisez ;)
+```
 
-## 🕹️ PRINCIPALES COMMANDES & AUTOMATISATIONS
+## 🕹️ Principales Commandes & Automatisations
 
-dbt run — Exécute tous les modèles  
-dbt test — Exécute les tests de qualité  
-dbt docs generate — Génère la documentation  
-dbt seed — Charge les données de référence
-Jobs YAML — Permet l'actualisation auto (voir deploy/jobs.yml)
+- dbt run — Exécute tous les modèles 
+
+- dbt test — Exécute les tests de qualité 
+
+- dbt docs generate — Génère la documentation  
+
+- dbt seed — Charge les données de référence
+
+- Jobs YAML — Permet l'actualisation auto (voir deploy/jobs.yml)
+
 
 ## 🏗️ Déploiement et Automatisation
 Étapes du pipeline :
 
-Actualisation planifiée (via jobs.yml) chaque matin, sans action humaine
-Tests et validation automatique à chaque déploiement
-Mise à jour automatique de la documentation
-Monitoring simple (alertes en cas d’échec)
+- Actualisation planifiée (via jobs.yml) chaque matin, sans action humaine
 
-Accès : tout est versionné sur GitHub pour retour arrière/blame/audit.
+- Tests et validation automatique à chaque déploiement
+
+- Mise à jour automatique de la documentation
+
+- Monitoring simple (alertes en cas d’échec)
+
+- Accès : tout est versionné sur GitHub pour retour arrière/blame/audit.
 
 ##  🚦 Guide d’Onboarding / Prise en Main
 Pour utiliser ou reprendre le projet :
 
-Cloner le repo
-Créer/adapter le fichier profiles.yml avec les credentials Snowflake/DBT
-Installer DBT (pip install dbt-snowflake ou via Cloud)
-Lancer les commandes de base :  
+- Cloner le repo
+
+- Créer/adapter le fichier profiles.yml avec les credentials Snowflake/DBT
+
+- Installer DBT (pip install dbt-snowflake ou via Cloud)
+
+- Lancer les commandes de base :  
+
+```bash
 dbt deps      // Télécharger dépendances
 dbt run     // Exécuter toutes les transformations
 dbt test    // Vérifier l’intégrité des données
 dbt docs generate && dbt docs serve // Générer/visualiser la documentation
+```
 
-
-## 📊 EXEMPLES DE KPIs & ANALYSES PRODUITES
+## 📊 Exemples de KPI & Analyses Pproduites
 
 | KPI                        | Description                                  |
 |----------------------------|----------------------------------------------|
@@ -238,9 +241,9 @@ dbt docs generate && dbt docs serve // Générer/visualiser la documentation
 
 
 👨‍💻 QUESTIONS/RÉPONSES : POUR ALLER PLUS LOIN…
-Q : Quel intérêt d’utiliser DBT ? : Standardisation, tests automatiques, doc intégrée, versionning Git, collaboration accrue.
-Q : Pourquoi automatiser ? : Plus d’oubli humain, données toujours à jour, gain de temps massif.
-Q : Snowflake, quels avantages ? : Performances, passage à l’échelle, coûts maîtrisés (pay-per-use), sécurité.
+- Q : Quel intérêt d’utiliser DBT ? : Standardisation, tests automatiques, doc intégrée, versionning Git, collaboration accrue.
+- Q : Pourquoi automatiser ? : Plus d’oubli humain, données toujours à jour, gain de temps massif.
+- Q : Snowflake, quels avantages ? : Performances, passage à l’échelle, coûts maîtrisés (pay-per-use), sécurité.
 
 
 
