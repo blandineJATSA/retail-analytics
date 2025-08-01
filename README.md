@@ -15,9 +15,7 @@
 
 ---
 
-## 📊 Data Lineage Visualization
-
-🏗️ Vue d'Ensemble du Pipeline
+🏗️ Vue d'Ensemble du data lineage
 ![Pipeline End-to-End](images/models_lineage.PNG)
 
  📈 Analytics Layer Lineage
