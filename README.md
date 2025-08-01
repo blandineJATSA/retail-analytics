@@ -60,11 +60,11 @@ Un **Data Warehouse moderne** avec :
 
 ## 🏆 QU'EST-CE QUE CE PROJET RÉSOUT ?
 
-- **Gain de temps** 💡 (plus de reporting manuel)
-- **Confiance dans la donnée** 🔒 (tests et monitoring automatiques)
-- **Prise de décision accélérée** 🚀 (dashboards à jour)
-- **Maitrise des coûts IT** 💰 (Snowflake = performance scalable, DBT = maintenance facilitée)
-- **Collaboration technique et business** 🤝 (documentation technique ET métier au même endroit)
+- **Gain de temps**  (plus de reporting manuel)
+- **Confiance dans la donnée**  (tests et monitoring automatiques)
+- **Prise de décision accélérée**  (dashboards à jour)
+- **Maitrise des coûts IT** (Snowflake = performance scalable, DBT = maintenance facilitée)
+- **Collaboration technique et business**  (documentation technique ET métier au même endroit)
 
 
 ## 🏗️ **Architecture Technique**
@@ -107,8 +107,9 @@ flowchart LR
     DBT -->|Test, Doc, Orchestration| DataSet[Data Sets certified]
     DataSet -->|Visualisation| Dashboard[Dashboards (BI)]
     DBT --> GitHub[GitHub - Code & Docs]
+```
 
-📖 ÉTAPES DU PROJET
+## 📖 ÉTAPES DU PROJET
 1️⃣ Connexion aux Données
 
 Extraction des données brutes (commandes, clients, produits…) dans Snowflake.
@@ -140,34 +141,42 @@ Consommation des datasets dans Tableau/PowerBI/dashboard.
 
 🛠️ Outils, Concepts et Pratiques utilisées
 
-- DBT CloudTransformation, orchestration et documentation de la data pipeline
-- SnowflakeData Warehouse performant et scalable
-- Git & CI/CDTraçabilité, collaboration, déploiement automatisé
-- Tests automatisés (DBT tests)Garantit la fiabilité (tests d’unicité, non null, relations, …)
+- DBT Cloud : Transformation, orchestration et documentation de la data pipeline
+- Snowflake : Data Warehouse performant et scalable
+- Git & CI/CD : Traçabilité, collaboration, déploiement automatisé
+- Tests automatisés (DBT tests) : Garantit la fiabilité (tests d’unicité, non null, relations, …)
 - Documentation intégréeChaque modèle DBT possède une doc business ET technique
 
 
-💻 INSTALLATION & PREMIÈRES COMMANDES
-# Cloner le repo
+## 💻 INSTALLATION & PREMIÈRES COMMANDES
+### Cloner le repo
+```bash
 git clone https://github.com/VOTRE-USERNAME/retail-analytics-dbt
 cd retail-analytics-dbt
-
-# Installer les dépendances (DBT)
+```
+### Installer les dépendances (DBT)
+```bash
 pip install dbt-snowflake
-
-# Configurer Snowflake & DBT (credentials dans profiles.yml)
+```
+### Configurer Snowflake & DBT (credentials dans profiles.yml)
+```bash
 dbt debug
-
-# Lancer un modèle complet :
+```
+### Lancer un modèle complet :
+```bash
 dbt run
+```
 
-# Lancer les tests automatiques :
+### Lancer les tests automatiques :
+```bash
 dbt test
+```
 
-# Générer la documentation interactive :
+### Générer la documentation interactive :
+```bash
 dbt docs generate
-
-🏗️ STRUCTURE DU PROJET
+```
+## 🏗️ STRUCTURE DU PROJET
 retail-analytics-dbt/
 ├── models/
 │   ├── staging/           # Données brutes nettoyées
@@ -180,7 +189,7 @@ retail-analytics-dbt/
 ├── profiles.yml           # Connexion à Snowflake
 └── README.md              # La doc que vous lisez ;)
 
-🕹️ PRINCIPALES COMMANDES & AUTOMATISATIONS
+## 🕹️ PRINCIPALES COMMANDES & AUTOMATISATIONS
 
 dbt run — Exécute tous les modèles  
 dbt test — Exécute les tests de qualité  
@@ -188,7 +197,7 @@ dbt docs generate — Génère la documentation
 dbt seed — Charge les données de référence
 Jobs YAML — Permet l'actualisation auto (voir deploy/jobs.yml)
 
-🏗️ Déploiement et Automatisation
+## 🏗️ Déploiement et Automatisation
 Étapes du pipeline :
 
 Actualisation planifiée (via jobs.yml) chaque matin, sans action humaine
@@ -198,7 +207,7 @@ Monitoring simple (alertes en cas d’échec)
 
 Accès : tout est versionné sur GitHub pour retour arrière/blame/audit.
 
-7. 🚦 Guide d’Onboarding / Prise en Main
+##  🚦 Guide d’Onboarding / Prise en Main
 Pour utiliser ou reprendre le projet :
 
 Cloner le repo
@@ -236,7 +245,7 @@ Q : Snowflake, quels avantages ? : Performances, passage à l’échelle, co
 
 
 
-### Resources:
+## Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
 - Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
 - Join the [dbt community](https://getdbt.com/community) to learn from other analytics engineers
